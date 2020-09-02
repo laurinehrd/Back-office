@@ -34,10 +34,10 @@
         <input type="password" name="password" class="form-control" id="password">
       </div>
       <div class="mb-3">
-        <label for="password" class="form-label">Veuillez saisir à nouveau votre mot de passe</label>
-        <input type="password" name="password" class="form-control" id="password">
+        <label for="passwordVerif" class="form-label">Veuillez saisir à nouveau votre mot de passe</label>
+        <input type="password" name="password" class="form-control" id="passwordVerif">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" disabled id="submit">Submit</button>
     </form>
   </div>
 
