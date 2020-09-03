@@ -18,3 +18,41 @@ passwordVerif.addEventListener('input', function(){
     submit.removeAttribute('disabled');
   }
 });
+
+
+// verif js
+// var inscription = document.getElementById('inscription');
+//
+// inscription.addEventListener('submit', function(){
+//   if(password.value != '' && email.value != '' && passwordVerif.value != ''){
+//     return true;
+//   }else {
+//     if (password.value == '') {
+//       alert('Mot de passe requis');
+//     }
+//     if (email.value == '') {
+//       alert('Email requis');
+//     }
+//     if (passwordVerif.value == '') {
+//       alert('Mot de passe requis');
+//     }
+//     return false;
+//   }
+// })
+//
+//
+// var connexion = document.getElementById('connexion');
+//
+// connexion.addEventListener('submit', function(){
+//   if(password.value != '' && email.value != ''){
+//     return true;
+//   }else {
+//     if (password.value == '') {
+//       alert('Mot de passe requis');
+//     }
+//     if (email.value == '') {
+//       alert('Email requis');
+//     }
+//     return false;
+//   }
+// })
