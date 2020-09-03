@@ -1,4 +1,12 @@
-<?php include 'header.php' ?>
+<?php include 'header.php';
+var_dump($_SESSION['errors']);
+if (isset($_SESSION['errors'])) {
+  $error = $_SESSION['errors'];
+  var_dump($error);
+  foreach ($_SESSION['errors'] as $value) {
+    echo '<p>' . $value . '</p>';
+  }
+} ?>
 
 <div class="container mt-3">
 
@@ -24,10 +32,10 @@
 
   <div class="inscription mt-5" id="inscription">
     <h2>Inscription</h2>
-    <form action="index.php" method="post">
+    <form action="traitement.php" method="post">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" name="email" class="form-control" id="email">
+        <input type="text" name="email" class="form-control" id="email">
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
@@ -35,7 +43,7 @@
       </div>
       <div class="mb-3">
         <label for="passwordVerif" class="form-label">Veuillez saisir à nouveau votre mot de passe</label>
-        <input type="password" name="password" class="form-control" id="passwordVerif">
+        <input type="password" name="passwordVerif" class="form-control" id="passwordVerif">
       </div>
       <button type="submit" class="btn btn-primary" disabled id="submit">Submit</button>
     </form>

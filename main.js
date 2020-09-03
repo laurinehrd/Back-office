@@ -7,6 +7,7 @@ function inscription(){
   document.getElementById('connexion').style.display = "none";
 }
 
+// check if it's the same password
 var email = document.getElementById('email');
 var password = document.getElementById('password');
 var passwordVerif = document.getElementById('passwordVerif');
