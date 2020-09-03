@@ -15,7 +15,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwor
 
     $checkEmail = checkEmail($email);
     $checkPassword = checkPassword($password, $passwordVerif);
-    if($checkEmail == true && $checkPassword == true){
+    if($checkEmail == 1 && $checkPassword == 1){
       echo 'ok';
       // hachage mdp
       // insertion bdd
@@ -31,7 +31,7 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwor
 
 function checkEmail($email){
   if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email)<50) {
-    return true;
+    return 1;
   }else{
     return 'Email non valide';
   }
@@ -39,7 +39,7 @@ function checkEmail($email){
 
 function checkPassword($password, $passwordVerif){
   if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
-    return true;
+    return 1;
   }else{
     return 'Mot de passe non valide';
   }
