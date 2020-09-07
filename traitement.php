@@ -1,5 +1,6 @@
 <?php
 session_start();
+require ('model.php');
 
 
 
@@ -16,18 +17,22 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwor
     $checkEmail = checkEmail($email);
     $checkPassword = checkPassword($password, $passwordVerif);
     if($checkEmail == 1 && $checkPassword == 1){
-      echo 'ok';
-      // hachage mdp
-      // insertion bdd
+      $result = insertUser($email, $password);
+      if($result == 'ok'){
+        // header('Location:index.php');
+      }else{
+        $_SESSION['errors'] = "La requete n'a pas pu aboutir.";
+        // header('Location:index.php');
+      }
     }else{
       $errors = [$checkEmail, $checkPassword];
       $_SESSION['errors'] = $errors;
-      var_dump($_SESSION['errors']);
+      // header('Location:index.php');
     }
   }
 }
 
-// header('Location:index.php');
+
 
 function checkEmail($email){
   if (filter_var($email, FILTER_VALIDATE_EMAIL) && strlen($email)<50) {

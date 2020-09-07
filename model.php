@@ -25,4 +25,38 @@
 
 
 
+insertUser('laurine.hrd@hotmail.fr', 'test');
+function insertUser($email, $password){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  $query = "SELECT `mail` FROM `user`";
+  $request = $dB->prepare($query);
+  $request->execute();
+  if($donnees = $request->fetch()){
+    if($donnees['mail'] == $email){
+      return 'Votre email est déjà enregistré, veuillez vous connecter.';
+      $request->closeCursor();
+    }else{
+      $query = "INSERT INTO `user`(`mail`, `password`) VALUES (:mail,:password)";
+      $password = password_hash($password, PASSWORD_DEFAULT);
+      $arrayValue = [
+        ':mail'=>$email,
+        ':password'=>$password
+      ];
+      $request = $dB->prepare($query);
+      if($request->execute($arrayValue)){
+        return 'ok';
+      }else{
+        return 'pas ok';
+      }
+      $request->closeCursor();
+    }
+  }
+}
+
+
  ?>

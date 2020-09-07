@@ -1,8 +1,8 @@
 <?php include 'header.php';
-var_dump($_SESSION['errors']);
+// var_dump($_SESSION['errors']);
 if (isset($_SESSION['errors'])) {
   $error = $_SESSION['errors'];
-  var_dump($error);
+  // var_dump($error);
   foreach ($_SESSION['errors'] as $value) {
     echo '<p>' . $value . '</p>';
   }
