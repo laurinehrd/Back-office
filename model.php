@@ -24,9 +24,31 @@
   $request->closeCursor(); // pour finir la requête
 
 
-
-insertUser('laurine.hrd@hotmail.fr', 'test');
 function insertUser($email, $password){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  $result = emailExist($email);
+  if($result == 'return ok'){
+    $query = "INSERT INTO `user`(`mail`, `password`) VALUES (:mail,:password)";
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $arrayValue = [
+      ':mail'=>$email,
+      ':password'=>$password
+    ];
+    $request = $dB->prepare($query);
+    if($request->execute($arrayValue)){
+      return 'ok';
+    }
+  }else{
+    return "l'email existe déjà. Veuillez vous connecter.";
+  }
+}
+
+function emailExist($email){
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -36,27 +58,38 @@ function insertUser($email, $password){
   $query = "SELECT `mail` FROM `user`";
   $request = $dB->prepare($query);
   $request->execute();
-  if($donnees = $request->fetch()){
+
+  while($donnees = $request->fetch()){
     if($donnees['mail'] == $email){
-      return 'Votre email est déjà enregistré, veuillez vous connecter.';
-      $request->closeCursor();
+      return 'email existant';
     }else{
-      $query = "INSERT INTO `user`(`mail`, `password`) VALUES (:mail,:password)";
-      $password = password_hash($password, PASSWORD_DEFAULT);
-      $arrayValue = [
-        ':mail'=>$email,
-        ':password'=>$password
-      ];
-      $request = $dB->prepare($query);
-      if($request->execute($arrayValue)){
-        return 'ok';
-      }else{
-        return 'pas ok';
-      }
-      $request->closeCursor();
+      return 'return ok';
     }
+    $request->closeCursor();
   }
 }
 
+function connectUser($email, $password){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+
+  $query = "SELECT `password` FROM `user` WHERE `mail`=:mail";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':mail'=>$email,
+  ];
+  if($request->execute($arrayValue)){
+    $donnees = $request->fetch();
+    if(password_verify($password,$donnees['password'])){
+      return 'connexion ok';
+    }else{
+      return 'password pas ok';
+    }
+    $request->closeCursor();
+  }
+}
 
  ?>

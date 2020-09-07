@@ -3,6 +3,16 @@ session_start();
 require ('model.php');
 
 
+if(isset($_POST['email']) && isset($_POST['password'])){
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $result = connectUser($email, $password);
+  var_dump($result);
+  if($result == 'connexion ok'){
+    var_dump($result);
+    header('Location:backoffice.php');
+  }
+}
 
 if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordVerif'])) {
   if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordVerif'])) {

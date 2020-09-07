@@ -3,9 +3,9 @@
 if (isset($_SESSION['errors'])) {
   $error = $_SESSION['errors'];
   // var_dump($error);
-  foreach ($_SESSION['errors'] as $value) {
-    echo '<p>' . $value . '</p>';
-  }
+  // foreach ($_SESSION['errors'] as $value) {
+  //   echo '<p>' . $value . '</p>';
+  // }
 } ?>
 
 <div class="container mt-3">
@@ -17,15 +17,15 @@ if (isset($_SESSION['errors'])) {
 
   <div class="connexion mt-5" id="connexion">
     <h2>Connexion</h2>
-    <form action="index.php" method="post">
+    <form action="traitement.php" method="post">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="email">
+        <input type="email" name="email" class="form-control" id="email">
       </div>
       <div class="mb-3">
         <label for="Password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="Password">
-      </div>
+        <input type="password" name="password" class="form-control" id="Password">
+      <!-- </div> -->
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
