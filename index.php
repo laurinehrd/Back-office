@@ -25,7 +25,7 @@ if (isset($_SESSION['errors'])) {
       <div class="mb-3">
         <label for="Password" class="form-label">Password</label>
         <input type="password" name="password" class="form-control" id="Password">
-      <!-- </div> -->
+      </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
