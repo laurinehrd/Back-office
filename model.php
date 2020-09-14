@@ -95,8 +95,6 @@ function connectUser($email, $password){
 
 
 
-
-
 // BACK OFFICE
 function countries(){
   $servername = "localhost";
@@ -234,7 +232,7 @@ function testimonial(){
 //   $request->execute();
 //   $request->closeCursor();
 // }
-//
+
 // function essainumdeux(){
 //   $servername = "localhost";
 //   $username = "root";

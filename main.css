@@ -1,0 +1,51 @@
+.col-lg-3{
+  height: 100vh;
+  background-color: #8471FF;
+}
+h3 {
+  color: #8471FF;
+}
+.italique{
+  font-style: italic;
+}
+.form{
+  margin-top: 5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+#form_countries{
+  display: none;
+}
+#form_events{
+  display: none;
+}
+#form_news{
+  display: none;
+}
+#form_services{
+  display: none;
+}
+#form_testimonial{
+  display: none;
+}
+.sidebar button{
+  margin-bottom: 2rem;
+  padding: 1rem;
+  width: 25.5rem;
+  border-left: none;
+  border-right: none;
+  border-radius: 0px;
+}
+.sidebar{
+  padding-top: 5rem;
+}
+.btn-primary{
+  background-color: #8471FF;
+  border-color: #8471FF;
+}
+.btn-primary:hover{
+  background-color: white;
+  color: #8471FF;
+  border-color: #8471FF;
+}
