@@ -1,8 +1,18 @@
-.col-lg-3{
-  height: 100vh;
-  background-color: #8471FF;
+#connexion{
+  display: none;
 }
+#inscription{
+  display: none;
+}
+
 h3 {
+  color: #8471FF;
+}
+.back a{
+  text-decoration-color: #8471FF;;
+  color: black;
+}
+.back a:hover{
   color: #8471FF;
 }
 .italique{
@@ -39,6 +49,8 @@ h3 {
 }
 .sidebar{
   padding-top: 5rem;
+  height: 100vh;
+  background-color: #8471FF;
 }
 .btn-primary{
   background-color: #8471FF;

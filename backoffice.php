@@ -16,12 +16,21 @@ require ('model.php');?>
   </div>
   <div class="col-lg-9 p-3">
     <p class="text-success d-flex justify-content-end">You are logged in.</p>
+    <p class="back d-flex justify-content-end"><a href="index.php">Back to index</a></p>
 
     <h3 class="text-center">Welcome to the dashboard</h3>
 
 <!-- PARTIE SERVICES -->
     <form class="form" id="form_services" action="backoffice.php" method="post">
       <h4 class="mb-5 text-uppercase">Our Services :</h4>
+
+      <div class="form-file">
+        <input type="file" class="form-file-input" name="icon" id="customFile">
+        <label class="form-file-label" for="customFile">
+          <span class="form-file-text">Choose icon...</span>
+          <span class="form-file-button">Send</span>
+        </label>
+      </div><br>
 
       <label for="title" class="form-label">Title :</label>
       <input class="form-control w-50" type="text" name="title" id="title"><br>
@@ -33,14 +42,16 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['title']) && isset($_POST['content'])){
+    if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['icon'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
-      $query = "INSERT INTO `services`(`titre`, `contenu`) VALUES (:title, :content )";
+      $icon = $_POST['icon'];
+      $query = "INSERT INTO `services`(`icone`,`titre`, `contenu`) VALUES (:icon,:title, :contenu )";
       $arrayValue = [
+        ':icon' =>$icon,
         ':title' =>$title,
-        ':content' =>$content
+        ':contenu' =>$content
       ];
       $request = $dB->prepare($query);
       $request->execute($arrayValue);
@@ -53,6 +64,14 @@ require ('model.php');?>
     <form class="form" id="form_news" action="backoffice.php" method="post">
       <h4 class="mb-5 text-uppercase">News :</h4>
 
+      <div class="form-file">
+        <input type="file" class="form-file-input" name="image" id="customFile">
+        <label class="form-file-label" for="customFile">
+          <span class="form-file-text">Choose image...</span>
+          <span class="form-file-button">Send</span>
+        </label>
+      </div><br>
+
       <label for="date" class="form-label">Date :</label>
       <input class="form-control w-50" type="date" name="date" id="date"></input><br>
 
@@ -63,12 +82,14 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['date']) && isset($_POST['title'])){
+    if(isset($_POST['date']) && isset($_POST['title']) && isset($_POST['image'])){
 
       $date = $_POST['date'];
       $title = $_POST['title'];
-      $query = "INSERT INTO `news`(`date`, `titre`) VALUES (:date, :title )";
+      $image = $_POST['image'];
+      $query = "INSERT INTO `news`(`image`,`date`, `titre`) VALUES (:image,:date, :title )";
       $arrayValue = [
+        ':image' =>$image,
         ':date' =>$date,
         ':title' =>$title
       ];
@@ -122,6 +143,14 @@ require ('model.php');?>
     <form class="form" id="form_countries" action="backoffice.php" method="post">
       <h4 class="mb-5 text-uppercase">Countries We Covered :</h4>
 
+      <div class="form-file">
+        <input type="file" class="form-file-input" name="image" id="customFile">
+        <label class="form-file-label" for="customFile">
+          <span class="form-file-text">Choose image...</span>
+          <span class="form-file-button">Send</span>
+        </label>
+      </div><br>
+
       <label for="title" class="form-label">Title :</label>
       <input class="form-control w-50" type="text" name="title" id="title"><br>
 
@@ -132,12 +161,14 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['title']) && isset($_POST['content'])){
+    if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['image'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
-      $query = "INSERT INTO `countries`(`titre`, `contenu`) VALUES (:title,:content)";
+      $image = $_POST['image'];
+      $query = "INSERT INTO `countries`(`image`,`titre`, `contenu`) VALUES (:image,:title,:content)";
       $arrayValue = [
+        ':image' =>$image,
         ':title' =>$title,
         ':content' =>$content
       ];
@@ -150,6 +181,14 @@ require ('model.php');?>
 <!-- PARTIE TESTIMONIAL -->
     <form class="form" id="form_testimonial" action="backoffice.php" method="post">
       <h4 class="mb-5 text-uppercase">Testimonial :</h4>
+
+      <div class="form-file">
+        <input type="file" class="form-file-input" name="image" id="customFile">
+        <label class="form-file-label" for="customFile">
+          <span class="form-file-text">Choose image...</span>
+          <span class="form-file-button">Send</span>
+        </label>
+      </div><br>
 
       <label for="firstname" class="form-label">Firstname :</label>
       <input class="form-control w-50" type="text" name="firstname" id="firstname"></input><br>
@@ -167,14 +206,16 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['job']) && isset($_POST['content'])){
+    if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['job']) && isset($_POST['content']) && isset($_POST['image'])){
 
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
       $job = $_POST['job'];
       $content = $_POST['content'];
-      $query = "INSERT INTO `testimonial`(`prénom`, `nom`, `métier`, `contenu`) VALUES (:firstname,:lastname,:job,:content)";
+      $image = $_POST['image'];
+      $query = "INSERT INTO `testimonial`(`image`,`prénom`, `nom`, `métier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
       $arrayValue = [
+        ':image' =>$image,
         ':firstname' =>$firstname,
         ':lastname' =>$lastname,
         ':job' =>$job,
