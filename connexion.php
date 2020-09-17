@@ -35,15 +35,15 @@ if (isset($_SESSION['errors'])) {
     <form action="traitement.php" method="post">
       <div class="mb-3">
         <label for="email" class="form-label">Email address</label>
-        <input type="text" name="email" class="form-control" id="email">
+        <input type="text" name="newEmail" class="form-control" id="email">
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password">
+        <input type="password" name="newPassword" class="form-control" id="password">
       </div>
       <div class="mb-3">
         <label for="passwordVerif" class="form-label">Veuillez saisir à nouveau votre mot de passe</label>
-        <input type="password" name="passwordVerif" class="form-control" id="passwordVerif">
+        <input type="password" name="newPasswordVerif" class="form-control" id="passwordVerif">
       </div>
       <button type="submit" class="btn btn-primary" disabled id="submit">Submit</button>
     </form>

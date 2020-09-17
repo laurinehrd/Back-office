@@ -16,12 +16,12 @@ if(isset($_POST['email']) && isset($_POST['password'])){
   }
 }
 
-if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwordVerif'])) {
-  if (!empty($_POST['email']) && !empty($_POST['password']) && !empty($_POST['passwordVerif'])) {
+if (isset($_POST['newEmail']) && isset($_POST['newPassword']) && isset($_POST['newPasswordVerif'])) {
+  if (!empty($_POST['newEmail']) && !empty($_POST['newPassword']) && !empty($_POST['newPasswordVerif'])) {
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $passwordVerif = $_POST['passwordVerif'];
+    $email = $_POST['newEmail'];
+    $password = $_POST['newPassword'];
+    $passwordVerif = $_POST['newPasswordVerif'];
     $email = check($email);
     $password = check ($password);
     $passwordVerif = check($passwordVerif);
@@ -55,11 +55,11 @@ function checkEmail($email){
 }
 
 function checkPassword($password, $passwordVerif){
-  if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
+  // if(preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password) && $password == $passwordVerif){
     return 1;
-  }else{
-    return 'Mot de passe non valide';
-  }
+  // }else{
+  //   return 'Mot de passe non valide';
+  // }
 }
 
 function check($input){

@@ -25,7 +25,7 @@
   $request->closeCursor(); // pour finir la requête
 
 
-function insertUser($email, $password){
+function insertUser($email, $passwordUser){
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -35,10 +35,10 @@ function insertUser($email, $password){
   $result = emailExist($email);
   if($result == 'return ok'){
     $query = "INSERT INTO `user`(`mail`, `password`) VALUES (:mail,:password)";
-    $password = password_hash($password, PASSWORD_DEFAULT);
+    $passwordUser = password_hash($passwordUser, PASSWORD_DEFAULT);
     $arrayValue = [
       ':mail'=>$email,
-      ':password'=>$password
+      ':password'=>$passwordUser
     ];
     $request = $dB->prepare($query);
     if($request->execute($arrayValue)){
@@ -84,7 +84,7 @@ function connectUser($email, $passwordUser){
   ];
   if($request->execute($arrayValue)){
     $donnees = $request->fetch();
-    if(hash_equals($donnees['password'],$passwordUser)){
+    if(password_verify($passwordUser, $donnees['password'])){
       return 'connexion ok';
     }else{
       return 'password pas ok';
