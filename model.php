@@ -70,7 +70,7 @@ function emailExist($email){
   }
 }
 
-function connectUser($email, $password){
+function connectUser($email, $passwordUser){
   $servername = "localhost";
   $username = "root";
   $password = "";
@@ -80,11 +80,11 @@ function connectUser($email, $password){
   $query = "SELECT `password` FROM `user` WHERE `mail`=:mail";
   $request = $dB->prepare($query);
   $arrayValue = [
-    ':mail'=>$email,
+    ':mail'=>$email
   ];
   if($request->execute($arrayValue)){
     $donnees = $request->fetch();
-    if(password_verify($password,$donnees['password'])){
+    if(hash_equals($donnees['password'],$passwordUser)){
       return 'connexion ok';
     }else{
       return 'password pas ok';

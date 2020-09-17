@@ -7,10 +7,12 @@ if(isset($_POST['email']) && isset($_POST['password'])){
   $email = $_POST['email'];
   $password = $_POST['password'];
   $result = connectUser($email, $password);
-  var_dump($result);
+  // var_dump($result);
   if($result == 'connexion ok'){
-    var_dump($result);
+    // var_dump($result);
     header('Location:backoffice.php');
+  }else{
+    header('Location:connexion.php');
   }
 }
 
@@ -29,15 +31,15 @@ if (isset($_POST['email']) && isset($_POST['password']) && isset($_POST['passwor
     if($checkEmail == 1 && $checkPassword == 1){
       $result = insertUser($email, $password);
       if($result == 'ok'){
-        // header('Location:index.php');
+        header('Location:connexion.php');
       }else{
         $_SESSION['errors'] = "La requete n'a pas pu aboutir.";
-        // header('Location:index.php');
+        header('Location:connexion.php');
       }
     }else{
       $errors = [$checkEmail, $checkPassword];
       $_SESSION['errors'] = $errors;
-      // header('Location:index.php');
+      header('Location:connexion.php');
     }
   }
 }

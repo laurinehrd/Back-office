@@ -11,9 +11,9 @@ require ('model.php');?>
     <button type="button" class="btn btn-outline-light" id="news" onclick="news()">News</button><br>
     <button type="button" class="btn btn-outline-light" id="services" onclick="services()">Services</button><br>
     <button type="button" class="btn btn-outline-light" id="testimonial" onclick="testimonial()">Testimonial</button>
-
-
+    <button type="button" class="btn btn-outline-light text-uppercase" id="seeall" onclick="seeall()">See all</button>
   </div>
+
   <div class="col-lg-9 p-3">
     <p class="text-success d-flex justify-content-end">You are logged in.</p>
     <p class="back d-flex justify-content-end"><a href="index.php">Back to index</a></p>
@@ -226,6 +226,57 @@ require ('model.php');?>
       $request->closeCursor();
     }
     ?>
+
+<!-- PARTIE SEE ALL -->
+    <div id="form_all" class="all">
+      <h4 class="mb-5 text-uppercase">all :</h4>
+      <h4 class="mb-5">Countries :</h4>
+
+      <?php
+      echo "<table style='border: solid 1px black;'>";
+      echo "<tr class='name_table'><th>id_countries</th><th>image</th><th>titre</th><th>contenu</th></tr>";
+
+      $query = "SELECT * FROM `countries`";
+      $request = $dB->prepare($query);
+      $request->execute();
+
+      class TableRows extends RecursiveIteratorIterator {
+        function __construct($it) {
+          parent::__construct($it, self::LEAVES_ONLY);
+      }
+      function current() {
+        return "<td style='width:150px;border:1px solid #f1faee;'>" . parent::current(). "</td>";
+      }
+
+      function beginChildren() {
+        echo "<tr class='tr'>";
+      }
+
+      function endChildren() {
+        echo "</tr>" . "\n";
+      }
+    }
+
+      $result = $request->setFetchMode(PDO::FETCH_ASSOC);
+      foreach(new TableRows(new RecursiveArrayIterator($request->fetchAll())) as $k=>$v) {
+        echo $v;
+      }
+      $request->closeCursor();
+
+      echo "</table>";
+
+      ?>
+
+    </div>
+
+    <?php
+    function titleCountries(){
+      $query = "SELECT `titre` FROM `countries` WHERE `titre`='Study in Australia'";
+      $request = $dB->prepare($query);
+      $request->execute();
+    }
+    ?>
+
 
 
   </div>
