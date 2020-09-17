@@ -2,10 +2,10 @@
 require ('model.php');?>
 
 
-<div class="contaier-fluid d-flex">
+<div class="d-flex">
   <div class="sidebar col-lg-3 bg-gradient text-center">
     <h2>Add a new project :</h2>
-    <p class="italique">Select a category</p>
+    <p class="italique pb-3">Select a category</p>
     <button type="button" class="btn btn-outline-light" id="countries" onclick="countries()">Countries</button><br>
     <button type="button" class="btn btn-outline-light" id="events" onclick="events()">Events</button><br>
     <button type="button" class="btn btn-outline-light" id="news" onclick="news()">News</button><br>
@@ -18,7 +18,7 @@ require ('model.php');?>
     <p class="text-success d-flex justify-content-end">You are logged in.</p>
     <p class="back d-flex justify-content-end"><a href="index.php">Back to index</a></p>
 
-    <h3 class="text-center">Welcome to the dashboard</h3>
+    <h3 class="text-center">Welcome to your dashboard</h3>
 
 <!-- PARTIE SERVICES -->
     <form class="form" id="form_services" action="backoffice.php" method="post">

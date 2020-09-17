@@ -24,9 +24,9 @@ h3 {
   align-items: center;
   flex-direction: column;
 }
-#form_countries{
+/* #form_countries{
   display: none;
-}
+} */
 #form_events{
   display: none;
 }
