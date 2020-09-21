@@ -134,7 +134,7 @@ function events(){
     `date` DATE NOT NULL ,
     `titre` VARCHAR(255) NOT NULL ,
     `contenu` TEXT NOT NULL ,
-    `horaires` DATETIME NOT NULL , PRIMARY KEY (`id_events`)) ENGINE = MyISAM;
+    `horaires` TIME NOT NULL , PRIMARY KEY (`id_events`)) ENGINE = MyISAM;
   )";
   $request = $dB->prepare($query);
   $request->execute();

@@ -42,7 +42,7 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['icon'])){
+    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['icon'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
@@ -82,7 +82,7 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['date']) && isset($_POST['title']) && isset($_POST['image'])){
+    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_POST['image'])){
 
       $date = $_POST['date'];
       $title = $_POST['title'];
@@ -119,7 +119,7 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['date']) && isset($_POST['title']) && isset($_POST['content']) && isset($_POST['hours'])){
+    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['hours'])){
 
       $date = $_POST['date'];
       $title = $_POST['title'];
@@ -161,7 +161,7 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['title']) && isset($_POST['content']) && isset($_POST['image'])){
+    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['image'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
@@ -206,7 +206,7 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(isset($_POST['firstname']) && isset($_POST['lastname']) && isset($_POST['job']) && isset($_POST['content']) && isset($_POST['image'])){
+    if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['job']) && !empty($_POST['content']) && !empty($_POST['image'])){
 
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
@@ -232,50 +232,24 @@ require ('model.php');?>
       <h4 class="mb-5 text-uppercase">all :</h4>
       <h4 class="mb-5">Countries :</h4>
 
-      <?php
-      echo "<table style='border: solid 1px black;'>";
-      echo "<tr class='name_table'><th>id_countries</th><th>image</th><th>titre</th><th>contenu</th></tr>";
-
-      $query = "SELECT * FROM `countries`";
-      $request = $dB->prepare($query);
-      $request->execute();
-
-      class TableRows extends RecursiveIteratorIterator {
-        function __construct($it) {
-          parent::__construct($it, self::LEAVES_ONLY);
-      }
-      function current() {
-        return "<td style='width:150px;border:1px solid #f1faee;'>" . parent::current(). "</td>";
-      }
-
-      function beginChildren() {
-        echo "<tr class='tr'>";
-      }
-
-      function endChildren() {
-        echo "</tr>" . "\n";
-      }
-    }
-
-      $result = $request->setFetchMode(PDO::FETCH_ASSOC);
-      foreach(new TableRows(new RecursiveArrayIterator($request->fetchAll())) as $k=>$v) {
-        echo $v;
-      }
-      $request->closeCursor();
-
-      echo "</table>";
-
-      ?>
 
     </div>
 
     <?php
-    function titleCountries(){
-      $query = "SELECT `titre` FROM `countries` WHERE `titre`='Study in Australia'";
-      $request = $dB->prepare($query);
-      $request->execute();
-    }
-    ?>
+
+      $countries = $dB->query("SELECT `image`, `titre`, `contenu` FROM `countries`");
+        while($donnees = $countries->fetch()){
+
+        ?>
+        <div class="card countriescards bg-light" style="width: 20rem;">
+           <img src="image/australia.png" class="card-img-top" alt="<?php echo $donnees['image'];?>">
+           <div class="card-body">
+             <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
+             <p class="card-text"><?php echo $donnees['contenu'];?></p>
+           </div>
+         </div>
+      <?php } $countries->closeCursor(); ?>
+
 
 
 
