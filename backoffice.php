@@ -277,7 +277,8 @@ require ('model.php');?>
       <div class="row row-cols-8">
         <form class="pl-0" action="backoffice.php" method="post">
       <?php
-        $countries = $dB->query("SELECT `image`, `titre`, `contenu` FROM `countries`");
+      // AFFICHAGE DANS LE FRONT
+        $countries = $dB->query("SELECT `id_countries`,`image`, `titre`, `contenu` FROM `countries`");
           while($donnees = $countries->fetch()){
       ?>
 
@@ -287,7 +288,7 @@ require ('model.php');?>
                <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
                <p class="card-text"><?php echo $donnees['contenu'];?></p>
              </div>
-             <button type="button" class="btn btn-primary" name="delete">Supprimer</button>
+             <button type="submit" class="btn btn-primary" name="delete" value="<?= $donnees['id_countries'] ?>">Supprimer</button>
 
            </div>
 
@@ -298,10 +299,15 @@ require ('model.php');?>
     </div>
 
     <?php
+    // DELETE ITEM
     if(isset($_POST['delete'])){
-      $query = "DELETE FROM `countries` WHERE `titre`='hello you'";
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `countries` WHERE `id_countries`=:id";
       $request = $dB->prepare($query);
-      $request->execute();
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
       $request->closeCursor();
     }
 
