@@ -24,6 +24,7 @@ h3 {
   align-items: center;
   flex-direction: column;
 }
+
 /* #form_countries{
   display: none;
 } */
@@ -42,6 +43,10 @@ h3 {
 #form_all{
   display: none;
 }
+#form_delete{
+  display: none;
+}
+
 .sidebar button{
   margin-bottom: 2rem;
   padding: 1rem;
@@ -51,7 +56,7 @@ h3 {
   border-radius: 0px;
 }
 .sidebar{
-  padding-top: 5rem;
+  padding-top: 2rem;
   height: 100vh;
   background-color: #8471FF;
 }

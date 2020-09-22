@@ -7,6 +7,7 @@ require ('model.php');?>
     <h2>Add a new project :</h2>
     <p class="italique pb-3">Select a category</p>
     <button type="button" class="btn btn-outline-light" id="countries" onclick="countries()">Countries</button><br>
+    <button type="button" class="btn btn-outline-light" id="featured" onclick="featured()">Featured</button><br>
     <button type="button" class="btn btn-outline-light" id="events" onclick="events()">Events</button><br>
     <button type="button" class="btn btn-outline-light" id="news" onclick="news()">News</button><br>
     <button type="button" class="btn btn-outline-light" id="services" onclick="services()">Services</button><br>
@@ -232,23 +233,39 @@ require ('model.php');?>
       <h4 class="mb-5 text-uppercase">all :</h4>
       <h4 class="mb-5">Countries :</h4>
 
+      <div class="row row-cols-8">
+        <form action="backoffice.php" method="post">
+      <?php
+        $countries = $dB->query("SELECT `image`, `titre`, `contenu` FROM `countries`");
+          while($donnees = $countries->fetch()){
+      ?>
+
+          <div class="card countriescards bg-light" style="width: 18rem;">
+             <img src="images/<?php echo $donnees['image'];?>" class="card-img-top" alt="<?php echo $donnees['image'];?>">
+             <div class="card-body">
+               <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
+               <p class="card-text"><?php echo $donnees['contenu'];?></p>
+             </div>
+             <button type="button" class="btn btn-primary" name="delete">Supprimer</button>
+           </form>
+           </div>
+
+        <?php } $countries->closeCursor(); ?>
+      </div>
 
     </div>
 
     <?php
+    if(isset($_POST['delete'])){
+      $query = "DELETE FROM `countries` WHERE `titre`='hello you'";
+      $request = $dB->prepare($query);
+      $request->execute();
+      $request->closeCursor();
+    }
 
-      $countries = $dB->query("SELECT `image`, `titre`, `contenu` FROM `countries`");
-        while($donnees = $countries->fetch()){
+    ?>
 
-        ?>
-        <div class="card countriescards bg-light" style="width: 20rem;">
-           <img src="image/australia.png" class="card-img-top" alt="<?php echo $donnees['image'];?>">
-           <div class="card-body">
-             <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
-             <p class="card-text"><?php echo $donnees['contenu'];?></p>
-           </div>
-         </div>
-      <?php } $countries->closeCursor(); ?>
+
 
 
 
