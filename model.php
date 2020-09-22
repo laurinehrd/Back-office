@@ -96,6 +96,26 @@ function connectUser($email, $passwordUser){
 
 
 // BACK OFFICE
+function featured(){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "CREATE TABLE IF NOT EXISTS `featured`(
+    `id_featured` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
+    `image` VARCHAR(255) NOT NULL , PRIMARY KEY (`id_featured`)) ENGINE = MyISAM;
+  )";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $request->closeCursor();
+}
+
 function countries(){
   $servername = "localhost";
   $username = "root";
@@ -255,6 +275,7 @@ function testimonial(){
 // }
 
 function createTable(){
+  featured();
   countries();
   events();
   news();
