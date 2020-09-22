@@ -21,13 +21,46 @@ require ('model.php');?>
 
     <h3 class="text-center">Welcome to your dashboard</h3>
 
+
+<!-- PARTIE FEATURED -->
+    <form class="form" id="form_featured" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <h4 class="mb-5 text-uppercase">Featured Universities :</h4>
+
+      <div class="form-file">
+        <input type="file" class="form-file-input" name="imageF" id="customFile1">
+        <label class="form-file-label" for="customFile1">
+          <span class="form-file-text">Choose image...</span>
+          <span class="form-file-button">Send</span>
+        </label>
+      </div><br>
+
+      <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
+    </form>
+
+    <?php
+    if(isset($_FILES['imageF'])){
+
+      $image = $_FILES['imageF']['name'];
+      $target ='images/'.$image;
+      move_uploaded_file($_FILES['imageF']['tmp_name'],$target);
+      $query = "INSERT INTO `featured`(`image`) VALUES (:image)";
+      $arrayValue = [
+        ':image' =>$image
+      ];
+      $request = $dB->prepare($query);
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    ?>
+
+
 <!-- PARTIE SERVICES -->
-    <form class="form" id="form_services" action="backoffice.php" method="post">
+    <form class="form" id="form_services" action="backoffice.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Our Services :</h4>
 
       <div class="form-file">
-        <input type="file" class="form-file-input" name="icon" id="customFile">
-        <label class="form-file-label" for="customFile">
+        <input type="file" class="form-file-input" name="icon" id="custoFile">
+        <label class="form-file-label" for="custoFile">
           <span class="form-file-text">Choose icon...</span>
           <span class="form-file-button">Send</span>
         </label>
@@ -43,11 +76,13 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['icon'])){
+    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['icon'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
-      $icon = $_POST['icon'];
+      $icon = $_FILES['icon']['name'];
+      $target ='images/'.$icon;
+      move_uploaded_file($_FILES['icon']['tmp_name'],$target);
       $query = "INSERT INTO `services`(`icone`,`titre`, `contenu`) VALUES (:icon,:title, :contenu )";
       $arrayValue = [
         ':icon' =>$icon,
@@ -62,12 +97,12 @@ require ('model.php');?>
 
 
 <!-- PARTIE NEWS -->
-    <form class="form" id="form_news" action="backoffice.php" method="post">
+    <form class="form" id="form_news" action="backoffice.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">News :</h4>
 
       <div class="form-file">
-        <input type="file" class="form-file-input" name="image" id="customFile">
-        <label class="form-file-label" for="customFile">
+        <input type="file" class="form-file-input" name="imageN" id="customFil">
+        <label class="form-file-label" for="customFil">
           <span class="form-file-text">Choose image...</span>
           <span class="form-file-button">Send</span>
         </label>
@@ -83,11 +118,13 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_POST['image'])){
+    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_FILES['imageN'])){
 
       $date = $_POST['date'];
       $title = $_POST['title'];
-      $image = $_POST['image'];
+      $image = $_FILES['imageN']['name'];
+      $target ='images/'.$image;
+      move_uploaded_file($_FILES['imageN']['tmp_name'],$target);
       $query = "INSERT INTO `news`(`image`,`date`, `titre`) VALUES (:image,:date, :title )";
       $arrayValue = [
         ':image' =>$image,
@@ -141,12 +178,12 @@ require ('model.php');?>
 
 
 <!-- PARTIE COUNTRIES -->
-    <form class="form" id="form_countries" action="backoffice.php" method="post">
+    <form class="form" id="form_countries" action="backoffice.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Countries We Covered :</h4>
 
       <div class="form-file">
-        <input type="file" class="form-file-input" name="image" id="customFile">
-        <label class="form-file-label" for="customFile">
+        <input type="file" class="form-file-input" name="imageC" id="customfile">
+        <label class="form-file-label" for="customfile">
           <span class="form-file-text">Choose image...</span>
           <span class="form-file-button">Send</span>
         </label>
@@ -162,11 +199,13 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['image'])){
+    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['imageC'])){
 
       $title = $_POST['title'];
       $content = $_POST['content'];
-      $image = $_POST['image'];
+      $image = $_FILES['imageC']['name'];
+      $target ='images/'.$image;
+      move_uploaded_file($_FILES['imageC']['tmp_name'],$target);
       $query = "INSERT INTO `countries`(`image`,`titre`, `contenu`) VALUES (:image,:title,:content)";
       $arrayValue = [
         ':image' =>$image,
@@ -180,12 +219,12 @@ require ('model.php');?>
     ?>
 
 <!-- PARTIE TESTIMONIAL -->
-    <form class="form" id="form_testimonial" action="backoffice.php" method="post">
+    <form class="form" id="form_testimonial" action="backoffice.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Testimonial :</h4>
 
       <div class="form-file">
-        <input type="file" class="form-file-input" name="image" id="customFile">
-        <label class="form-file-label" for="customFile">
+        <input type="file" class="form-file-input" name="image" id="customFile2">
+        <label class="form-file-label" for="customFile2">
           <span class="form-file-text">Choose image...</span>
           <span class="form-file-button">Send</span>
         </label>
@@ -207,13 +246,15 @@ require ('model.php');?>
     </form>
 
     <?php
-    if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['job']) && !empty($_POST['content']) && !empty($_POST['image'])){
+    if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['job']) && !empty($_POST['content']) && !empty($_FILES['image'])){
 
       $firstname = $_POST['firstname'];
       $lastname = $_POST['lastname'];
       $job = $_POST['job'];
       $content = $_POST['content'];
-      $image = $_POST['image'];
+      $image = $_FILES['image']['name'];
+      $target ='images/'.$image;
+      move_uploaded_file($_FILES['image']['tmp_name'],$target);
       $query = "INSERT INTO `testimonial`(`image`,`prénom`, `nom`, `métier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
       $arrayValue = [
         ':image' =>$image,
@@ -234,7 +275,7 @@ require ('model.php');?>
       <h4 class="mb-5">Countries :</h4>
 
       <div class="row row-cols-8">
-        <form action="backoffice.php" method="post">
+        <form class="pl-0" action="backoffice.php" method="post">
       <?php
         $countries = $dB->query("SELECT `image`, `titre`, `contenu` FROM `countries`");
           while($donnees = $countries->fetch()){
@@ -247,10 +288,11 @@ require ('model.php');?>
                <p class="card-text"><?php echo $donnees['contenu'];?></p>
              </div>
              <button type="button" class="btn btn-primary" name="delete">Supprimer</button>
-           </form>
+
            </div>
 
         <?php } $countries->closeCursor(); ?>
+        </form>
       </div>
 
     </div>
