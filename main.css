@@ -31,6 +31,9 @@ h3 {
 #form_events{
   display: none;
 }
+#form_featured{
+  display: none;
+}
 #form_news{
   display: none;
 }
