@@ -219,60 +219,15 @@ function testimonial(){
   $query = "CREATE TABLE IF NOT EXISTS `testimonial`(
     `id_testimonial` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
     `image` VARCHAR(255) NOT NULL ,
-    `prénom` VARCHAR(255) NOT NULL ,
+    `prenom` VARCHAR(255) NOT NULL ,
     `nom` VARCHAR(255) NOT NULL ,
-    `métier` VARCHAR(255) NOT NULL ,
+    `metier` VARCHAR(255) NOT NULL ,
     `contenu` TEXT NOT NULL , PRIMARY KEY (`id_testimonial`)) ENGINE = MyISAM;
   )";
   $request = $dB->prepare($query);
   $request->execute();
   $request->closeCursor();
 }
-
-// function essai(){
-//   $servername = "localhost";
-//   $username = "root";
-//   $password = "";
-//   $dbname = "test";
-//   try{
-//     $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-//     $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//   }catch(Exception $e){
-//     die('erreur:' . $e->getMessage());
-//   }
-//   $query = "CREATE TABLE IF NOT EXISTS `essai`(
-//     `id_essai` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-//     `image` VARCHAR(255) NOT NULL ,
-//     `prénom` VARCHAR(255) NOT NULL ,
-//     `nom` VARCHAR(255) NOT NULL ,
-//     `métier` VARCHAR(255) NOT NULL ,
-//     `contenu` TEXT NOT NULL , PRIMARY KEY (`id_essai`)) ENGINE = MyISAM;
-//   )";
-//   $request = $dB->prepare($query);
-//   $request->execute();
-//   $request->closeCursor();
-// }
-
-// function essainumdeux(){
-//   $servername = "localhost";
-//   $username = "root";
-//   $password = "";
-//   $dbname = "test";
-//   try{
-//     $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-//     $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//   }catch(Exception $e){
-//     die('erreur:' . $e->getMessage());
-//   }
-//   $query = "CREATE TABLE IF NOT EXISTS `essainumdeux`(
-//     `id_essainumdeux` INT UNSIGNED NOT NULL AUTO_INCREMENT ,
-//     `mail` VARCHAR(50) NOT NULL ,
-//     `password` INT(255) NOT NULL , PRIMARY KEY (`id_essainumdeux`)) ENGINE = MyISAM;
-//   )";
-//   $request = $dB->prepare($query);
-//   $request->execute();
-//   $request->closeCursor();
-// }
 
 function createTable(){
   featured();
