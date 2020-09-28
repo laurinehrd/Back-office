@@ -272,10 +272,11 @@ require ('model.php');?>
 <!-- PARTIE SEE ALL -->
     <div id="form_all" class="all">
       <h4 class="mb-5 text-uppercase">all :</h4>
+      <!-- COUNTRIES -->
       <h4 class="mb-5">Countries :</h4>
 
-      <div class="row row-cols-8">
-        <form class="pl-0" action="backoffice.php" method="post">
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
       <?php
       // AFFICHAGE DANS LE FRONT
         $countries = $dB->query("SELECT `id_countries`,`image`, `titre`, `contenu` FROM `countries`");
@@ -296,13 +297,193 @@ require ('model.php');?>
         </form>
       </div>
 
+      <!-- FEATURED -->
+      <h4 class="mb-5 mt-5">Featured :</h4>
+
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
+      <?php
+      // AFFICHAGE DANS LE FRONT
+        $featured = $dB->query("SELECT * FROM `featured`");
+          while($f = $featured->fetch()){
+      ?>
+
+          <div class="card countriescards bg-light" style="width: 18rem;">
+             <img src="images/<?php echo $f['image'];?>" class="card-img-top" alt="<?php echo $f['image'];?>">
+             <button type="submit" class="btn btn-primary" name="delete" value="<?= $f['id_featured'] ?>">Supprimer</button>
+          </div>
+
+        <?php } $featured->closeCursor(); ?>
+        </form>
+      </div>
+
+      <!-- EVENTS -->
+      <h4 class="mb-5 mt-5">Events :</h4>
+
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
+      <?php
+      // AFFICHAGE DANS LE FRONT
+        $events = $dB->query("SELECT * FROM `events`");
+          while($e = $events->fetch()){
+      ?>
+      <div class="card eventscards bg-white shadow  shadow-xl p-2" style="width: 18rem;">
+        <div class="card-body d-flex flex-row">
+          <div class="bg-secondary rounded text-white mr-3" height="50px" width="50px" alt="avatar">
+            <p class="card-text text-center mt-1"><?php echo $e['date'];?></p>
+          </div>
+          <div>
+            <h5 class="card-title font-weight-bold mb-2"><?php echo $e['titre'];?></h5>
+          </div>
+        </div>
+        <p class="card-text mr-3 ml-3"><?php echo $e['contenu'];?></p>
+        <div class="cardfootevents">
+          <a href="#" class="card-link ">Learn more → </a>
+          <p class="card-text"><i class="far fa-clock pr-2"></i><?php echo $e['horaires'];?></p>
+        </div>
+        <button type="submit" class="btn btn-primary" name="delete" value="<?= $e['id_events'] ?>">Supprimer</button>
+      </div>
+
+    <?php } $events->closeCursor(); ?>
+        </form>
+      </div>
+
+      <!-- NEWS -->
+      <h4 class="mb-5 mt-5">News :</h4>
+
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
+      <?php
+      // AFFICHAGE DANS LE FRONT
+        $news = $dB->query("SELECT * FROM `news`");
+          while($n = $news->fetch()){
+      ?>
+      <div class="card shadow shadow-xl newscards" style="width: 18rem;">
+        <div class="card-body">
+          <img src="images/<?php echo $n['image'];?>" alt="<?php echo $n['image'];?>">
+          <p class="card-text"><?php echo $n['date'];?></p>
+          <h4 class="card-subtitle mb-2 text-muted"><?php echo $n['titre'];?></h4>
+        <a href="#" class="card-link">Learn more → </a>
+        </div>
+        <button type="submit" class="btn btn-primary" name="delete" value="<?= $n['id_news'] ?>">Supprimer</button>
+      </div>
+    <?php } $news->closeCursor(); ?>
+        </form>
+      </div>
+
+      <!-- SERVICES -->
+      <h4 class="mb-5 mt-5">Services :</h4>
+
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
+      <?php
+      // AFFICHAGE DANS LE FRONT
+        $services = $dB->query("SELECT * FROM `services`");
+          while($s = $services->fetch()){
+      ?>
+      <div class="card shadow shadow-xl servicescards" style="width: 18rem;">
+        <div class="card-body">
+          <img src="image/<?php echo $s['icone'];?>">
+          <h4 class="card-subtitle mb-2 text-muted"><?php echo $s['titre'];?></h4>
+          <p class="card-text"><?php echo $s['contenu'];?></p>
+          <a href="#" class="card-link ">Learn more → </a>
+        </div>
+        <button type="submit" class="btn btn-primary" name="delete" value="<?= $s['id_services'] ?>">Supprimer</button>
+      </div>
+    <?php } $services->closeCursor(); ?>
+        </form>
+      </div>
+
+      <!-- TESTIMONIAL -->
+      <h4 class="mb-5 mt-5">Testimonial :</h4>
+
+      <div class="row row-cols-12">
+        <form class="items_form" action="backoffice.php" method="post">
+      <?php
+      // AFFICHAGE DANS LE FRONT
+        $testimonial = $dB->query("SELECT * FROM `testimonial`");
+          while($t = $testimonial->fetch()){
+      ?>
+      <div class="card testimonialscards p-2" style="width: 20rem;">
+        <div class="card-body d-flex flex-row">
+          <img src="image/<?php echo $t['image'];?>" class="rectangle-circle mr-3" height="50px" width="50px" alt="avatar">
+          <div>
+            <h4 class="card-title font-weight-bold mb-2"><?php echo $t['prenom'];?><?php echo $t['nom'];?></h4>
+            <p class="card-text"><?php echo $t['metier'];?></p>
+          </div>
+        </div>
+          <p class="card-text"><?php echo $t['contenu'];?></p>
+        <button type="submit" class="btn btn-primary" name="delete" value="<?= $t['id_testimonial'] ?>">Supprimer</button>
+      </div>
+    <?php } $testimonial->closeCursor(); ?>
+        </form>
+      </div>
+
+
+
     </div>
 
+
     <?php
-    // DELETE ITEM
+    // DELETE ITEM countries
     if(isset($_POST['delete'])){
       $id = $_POST['delete'];
       $query = "DELETE FROM `countries` WHERE `id_countries`=:id";
+      $request = $dB->prepare($query);
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    // DELETE ITEM featured
+    if(isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `featured` WHERE `id_featured`=:id";
+      $request = $dB->prepare($query);
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    // DELETE ITEM events
+    if(isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `events` WHERE `id_events`=:id";
+      $request = $dB->prepare($query);
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    // DELETE ITEM news
+    if(isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `news` WHERE `id_news`=:id";
+      $request = $dB->prepare($query);
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    // DELETE ITEM services
+    if(isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `services` WHERE `id_services`=:id";
+      $request = $dB->prepare($query);
+      $arrayValue = [
+        ':id' =>$id
+      ];
+      $request->execute($arrayValue);
+      $request->closeCursor();
+    }
+    // DELETE ITEM testimonial
+    if(isset($_POST['delete'])){
+      $id = $_POST['delete'];
+      $query = "DELETE FROM `testimonial` WHERE `id_testimonial`=:id";
       $request = $dB->prepare($query);
       $arrayValue = [
         ':id' =>$id
