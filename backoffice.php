@@ -255,7 +255,7 @@ require ('model.php');?>
       $image = $_FILES['image']['name'];
       $target ='images/'.$image;
       move_uploaded_file($_FILES['image']['tmp_name'],$target);
-      $query = "INSERT INTO `testimonial`(`image`,`prénom`, `nom`, `métier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
+      $query = "INSERT INTO `testimonial`(`image`,`prenom`, `nom`, `metier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
       $arrayValue = [
         ':image' =>$image,
         ':firstname' =>$firstname,
@@ -272,6 +272,7 @@ require ('model.php');?>
 <!-- PARTIE SEE ALL -->
     <div id="form_all" class="all">
       <h4 class="mb-5 text-uppercase">all :</h4>
+
       <!-- COUNTRIES -->
       <h4 class="mb-5">Countries :</h4>
 
@@ -282,7 +283,6 @@ require ('model.php');?>
         $countries = $dB->query("SELECT `id_countries`,`image`, `titre`, `contenu` FROM `countries`");
           while($donnees = $countries->fetch()){
       ?>
-
           <div class="card countriescards bg-light" style="width: 18rem;">
              <img src="images/<?php echo $donnees['image'];?>" class="card-img-top" alt="<?php echo $donnees['image'];?>">
              <div class="card-body">
@@ -307,7 +307,6 @@ require ('model.php');?>
         $featured = $dB->query("SELECT * FROM `featured`");
           while($f = $featured->fetch()){
       ?>
-
           <div class="card countriescards bg-light" style="width: 18rem;">
              <img src="images/<?php echo $f['image'];?>" class="card-img-top" alt="<?php echo $f['image'];?>">
              <button type="submit" class="btn btn-primary" name="delete" value="<?= $f['id_featured'] ?>">Supprimer</button>
@@ -360,7 +359,7 @@ require ('model.php');?>
       ?>
       <div class="card shadow shadow-xl newscards" style="width: 18rem;">
         <div class="card-body">
-          <img src="images/<?php echo $n['image'];?>" alt="<?php echo $n['image'];?>">
+          <img src="images/<?php echo $n['image'];?>" class="card-img-top" alt="<?php echo $n['image'];?>">
           <p class="card-text"><?php echo $n['date'];?></p>
           <h4 class="card-subtitle mb-2 text-muted"><?php echo $n['titre'];?></h4>
         <a href="#" class="card-link">Learn more → </a>
@@ -383,7 +382,7 @@ require ('model.php');?>
       ?>
       <div class="card shadow shadow-xl servicescards" style="width: 18rem;">
         <div class="card-body">
-          <img src="image/<?php echo $s['icone'];?>">
+          <img src="images/<?php echo $s['icone'];?>">
           <h4 class="card-subtitle mb-2 text-muted"><?php echo $s['titre'];?></h4>
           <p class="card-text"><?php echo $s['contenu'];?></p>
           <a href="#" class="card-link ">Learn more → </a>
@@ -406,7 +405,7 @@ require ('model.php');?>
       ?>
       <div class="card testimonialscards p-2" style="width: 20rem;">
         <div class="card-body d-flex flex-row">
-          <img src="image/<?php echo $t['image'];?>" class="rectangle-circle mr-3" height="50px" width="50px" alt="avatar">
+          <img src="images/<?php echo $t['image'];?>" class="rectangle-circle mr-3" height="50px" width="50px" alt="avatar">
           <div>
             <h4 class="card-title font-weight-bold mb-2"><?php echo $t['prenom'];?><?php echo $t['nom'];?></h4>
             <p class="card-text"><?php echo $t['metier'];?></p>
