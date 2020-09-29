@@ -95,7 +95,7 @@ function connectUser($email, $passwordUser){
 
 
 
-// BACK OFFICE
+// CREATION TABLES OF DIFFERENTES SECTION IN DB
 function featured(){
   $servername = "localhost";
   $username = "root";
@@ -236,11 +236,144 @@ function createTable(){
   news();
   services();
   testimonial();
-  // essai();
-  // essainumdeux();
 }
 
 createtable();
+
+
+// INSERTION IN DATABASE
+function featuredInsert($image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `featured`(`image`) VALUES (:image)";
+  $arrayValue = [
+    ':image' =>$image
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function servicesInsert($title,$content,$icon){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `services`(`icone`,`titre`, `contenu`) VALUES (:icon,:title, :contenu )";
+  $arrayValue = [
+    ':icon' =>$icon,
+    ':title' =>$title,
+    ':contenu' =>$content
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function newsInsert($date,$title,$image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `news`(`image`,`date`, `titre`) VALUES (:image,:date, :title )";
+  $arrayValue = [
+    ':image' =>$image,
+    ':date' =>$date,
+    ':title' =>$title
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function eventsInsert($date,$title,$content,$hours){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `events`(`date`, `titre`, `contenu`, `horaires`) VALUES (:date,:title,:contenu,:hours)";
+  $arrayValue = [
+    ':date' =>$date,
+    ':title' =>$title,
+    ':contenu' =>$content,
+    ':hours' =>$hours
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function countriesInsert($title,$content,$image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `countries`(`image`,`titre`, `contenu`) VALUES (:image,:title,:content)";
+  $arrayValue = [
+    ':image' =>$image,
+    ':title' =>$title,
+    ':content' =>$content
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function testimonialInsert($firstname,$lastname,$job,$content,$image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "INSERT INTO `testimonial`(`image`,`prenom`, `nom`, `metier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
+  $arrayValue = [
+    ':image' =>$image,
+    ':firstname' =>$firstname,
+    ':lastname' =>$lastname,
+    ':job' =>$job,
+    ':content' =>$content
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
 
 
  ?>

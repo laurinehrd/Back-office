@@ -76,13 +76,7 @@ if(isset($_FILES['imageF'])){
   $image = $_FILES['imageF']['name'];
   $target ='images/'.$image;
   move_uploaded_file($_FILES['imageF']['tmp_name'],$target);
-  $query = "INSERT INTO `featured`(`image`) VALUES (:image)";
-  $arrayValue = [
-    ':image' =>$image
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  featuredInsert($image);
   header('Location:backoffice.php');
 }
 
@@ -94,15 +88,7 @@ if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['icon'
   $icon = $_FILES['icon']['name'];
   $target ='images/'.$icon;
   move_uploaded_file($_FILES['icon']['tmp_name'],$target);
-  $query = "INSERT INTO `services`(`icone`,`titre`, `contenu`) VALUES (:icon,:title, :contenu )";
-  $arrayValue = [
-    ':icon' =>$icon,
-    ':title' =>$title,
-    ':contenu' =>$content
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  servicesInsert($title,$content,$icon);
   header('Location:backoffice.php');
 }
 
@@ -114,15 +100,7 @@ if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_FILES['imageN']
   $image = $_FILES['imageN']['name'];
   $target ='images/'.$image;
   move_uploaded_file($_FILES['imageN']['tmp_name'],$target);
-  $query = "INSERT INTO `news`(`image`,`date`, `titre`) VALUES (:image,:date, :title )";
-  $arrayValue = [
-    ':image' =>$image,
-    ':date' =>$date,
-    ':title' =>$title
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  newsInsert($date,$title,$image);
   header('Location:backoffice.php');
 }
 
@@ -133,16 +111,7 @@ if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_POST['content']
   $title = $_POST['title'];
   $content = $_POST['content'];
   $hours = $_POST['hours'];
-  $query = "INSERT INTO `events`(`date`, `titre`, `contenu`, `horaires`) VALUES (:date,:title,:contenu,:hours)";
-  $arrayValue = [
-    ':date' =>$date,
-    ':title' =>$title,
-    ':contenu' =>$content,
-    ':hours' =>$hours
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  eventsInsert($date,$title,$content,$hours);
   header('Location:backoffice.php');
 }
 
@@ -154,15 +123,7 @@ if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['image
   $image = $_FILES['imageC']['name'];
   $target ='images/'.$image;
   move_uploaded_file($_FILES['imageC']['tmp_name'],$target);
-  $query = "INSERT INTO `countries`(`image`,`titre`, `contenu`) VALUES (:image,:title,:content)";
-  $arrayValue = [
-    ':image' =>$image,
-    ':title' =>$title,
-    ':content' =>$content
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  countriesInsert($title,$content,$image);
   header('Location:backoffice.php');
 }
 
@@ -176,17 +137,7 @@ if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['j
   $image = $_FILES['image']['name'];
   $target ='images/'.$image;
   move_uploaded_file($_FILES['image']['tmp_name'],$target);
-  $query = "INSERT INTO `testimonial`(`image`,`prenom`, `nom`, `metier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
-  $arrayValue = [
-    ':image' =>$image,
-    ':firstname' =>$firstname,
-    ':lastname' =>$lastname,
-    ':job' =>$job,
-    ':content' =>$content
-  ];
-  $request = $dB->prepare($query);
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  testimonialInsert($firstname,$lastname,$job,$content,$image);
   header('Location:backoffice.php');
 }
 
