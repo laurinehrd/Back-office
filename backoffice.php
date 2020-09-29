@@ -289,8 +289,8 @@ require ('model.php');?>
                <h5 class="card-text"><?php echo $donnees['titre'];?></h5>
                <p class="card-text"><?php echo $donnees['contenu'];?></p>
              </div>
-             <button type="submit" class="btn btn-primary" name="delete" value="<?= $donnees['id_countries'] ?>">Supprimer</button>
-
+             <button type="submit" class="btn btn-primary" name="edit" value="<?= $donnees['id_countries'] ?>">Edit</button>
+             <button type="submit" class="btn btn-danger" name="delete" value="<?= $donnees['id_countries'] ?>">Delete</button>
            </div>
 
         <?php } $countries->closeCursor(); ?>
@@ -309,7 +309,7 @@ require ('model.php');?>
       ?>
           <div class="card countriescards bg-light" style="width: 18rem;">
              <img src="images/<?php echo $f['image'];?>" class="card-img-top" alt="<?php echo $f['image'];?>">
-             <button type="submit" class="btn btn-primary" name="delete" value="<?= $f['id_featured'] ?>">Supprimer</button>
+             <button type="submit" class="btn btn-danger" name="delete" value="<?= $f['id_featured'] ?>">Delete</button>
           </div>
 
         <?php } $featured->closeCursor(); ?>
@@ -340,7 +340,7 @@ require ('model.php');?>
           <a href="#" class="card-link ">Learn more → </a>
           <p class="card-text"><i class="far fa-clock pr-2"></i><?php echo $e['horaires'];?></p>
         </div>
-        <button type="submit" class="btn btn-primary" name="delete" value="<?= $e['id_events'] ?>">Supprimer</button>
+        <button type="submit" class="btn btn-danger" name="delete" value="<?= $e['id_events'] ?>">Delete</button>
       </div>
 
     <?php } $events->closeCursor(); ?>
@@ -364,7 +364,7 @@ require ('model.php');?>
           <h4 class="card-subtitle mb-2 text-muted"><?php echo $n['titre'];?></h4>
         <a href="#" class="card-link">Learn more → </a>
         </div>
-        <button type="submit" class="btn btn-primary" name="delete" value="<?= $n['id_news'] ?>">Supprimer</button>
+        <button type="submit" class="btn btn-danger" name="delete" value="<?= $n['id_news'] ?>">Delete</button>
       </div>
     <?php } $news->closeCursor(); ?>
         </form>
@@ -387,7 +387,7 @@ require ('model.php');?>
           <p class="card-text"><?php echo $s['contenu'];?></p>
           <a href="#" class="card-link ">Learn more → </a>
         </div>
-        <button type="submit" class="btn btn-primary" name="delete" value="<?= $s['id_services'] ?>">Supprimer</button>
+        <button type="submit" class="btn btn-danger" name="delete" value="<?= $s['id_services'] ?>">Delete</button>
       </div>
     <?php } $services->closeCursor(); ?>
         </form>
@@ -412,7 +412,7 @@ require ('model.php');?>
           </div>
         </div>
           <p class="card-text"><?php echo $t['contenu'];?></p>
-        <button type="submit" class="btn btn-primary" name="delete" value="<?= $t['id_testimonial'] ?>">Supprimer</button>
+        <button type="submit" class="btn btn-danger" name="delete" value="<?= $t['id_testimonial'] ?>">Delete</button>
       </div>
     <?php } $testimonial->closeCursor(); ?>
         </form>
@@ -491,27 +491,67 @@ require ('model.php');?>
       $request->closeCursor();
     }
 
+
+
+    // UPDATE countries
+    if(isset($_POST['edit'])){
+      $id = $_POST['edit'];
+      $_SESSION['id_edit']= $id;
+      $query = "SELECT * from `countries` WHERE `id_countries` = $id";
+      $request = $dB->prepare($query);
+      $request->execute();
+      $toUpdate = $request->fetch();
+      $request->closeCursor();
+      echo '<h3>Edit :</h3>
+      <form class="form" id="form_countries" action="backoffice.php" method="post" enctype="multipart/form-data">
+
+        <div class="form-file">
+          <input type="file" class="form-file-input" name="new_imageC" id="customfile" value="' .$toUpdate['image']. '">
+          <label class="form-file-label" for="customfile">
+            <span class="form-file-text">Choose image...</span>
+            <span class="form-file-button">Send</span>
+          </label>
+          <img src="images/' .$toUpdate['image']. '" class="w-50">
+        </div><br>
+
+        <label for="title" class="form-label">Title :</label>
+        <input class="form-control w-50" type="text" name="new_title" id="title" value="'.$toUpdate['titre'].'"><br>
+
+        <label for="content" class="form-label">Content :</label>
+        <textarea class="form-control w-50" rows="5" type="text" name="new_content" id="content">'.$toUpdate['contenu'].'</textarea><br>
+
+        <button type="submit" name="update" class="btn btn-primary" value='.$id.'>Edit</button>
+      </form>';
+}
+      if(isset($_POST['update'])){
+        $id = $_SESSION['id_edit'];
+        $_SESSION['id_edit'] = null; //vider la session après
+        $new_title = $_POST['new_title'];
+        $new_content = $_POST['new_content'];
+        $new_image = $_FILES['new_imageC']['name'];
+        $target ='images/'.$new_image;
+        move_uploaded_file($_FILES['new_imageC']['tmp_name'],$target);
+
+        $query = "UPDATE `countries` SET `image`= :image,`titre`= :title ,`contenu`= :content WHERE `id_countries`=:id";
+        $arrayValue = [
+          ':id' =>$id,
+          ':image' =>$new_image,
+          ':title' =>$new_title,
+          ':content' =>$new_content
+        ];
+        $request = $dB->prepare($query);
+        $request->execute($arrayValue);
+        $request->closeCursor();
+      }
+
+
+
     ?>
-
-
-
-
 
 
   </div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
