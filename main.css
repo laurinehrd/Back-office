@@ -76,3 +76,7 @@ table{
   width: 55rem;
   border-collapse: separate;
 }
+.items_form{
+  display: flex;
+  flex-wrap: wrap;
+}
