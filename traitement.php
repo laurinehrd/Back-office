@@ -148,78 +148,42 @@ if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['j
 // delete countries
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `countries` WHERE `id_countries`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  countriesDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete featured
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `featured` WHERE `id_featured`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  featuredDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete events
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `events` WHERE `id_events`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  eventsDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete news
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `news` WHERE `id_news`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  newsDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete services
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `services` WHERE `id_services`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  servicesDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete testimonial
 if(isset($_POST['delete'])){
   $id = $_POST['delete'];
-  $query = "DELETE FROM `testimonial` WHERE `id_testimonial`=:id";
-  $request = $dB->prepare($query);
-  $arrayValue = [
-    ':id' =>$id
-  ];
-  $request->execute($arrayValue);
-  $request->closeCursor();
+  testimonialDelete($id);
   header('Location:backoffice.php');
 }
 

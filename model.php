@@ -376,4 +376,126 @@ function testimonialInsert($firstname,$lastname,$job,$content,$image){
 }
 
 
+// DELETE IN DATABASE
+function featuredDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `featured` WHERE `id_featured`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function servicesDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `services` WHERE `id_services`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function newsDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `news` WHERE `id_news`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function eventsDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `events` WHERE `id_events`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function countriesDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `countries` WHERE `id_countries`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function testimonialDelete($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "DELETE FROM `testimonial` WHERE `id_testimonial`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+
  ?>
