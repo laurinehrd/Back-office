@@ -23,7 +23,7 @@ require ('model.php');?>
 
 
 <!-- PARTIE FEATURED -->
-    <form class="form" id="form_featured" action="backoffice.php" method="post" enctype="multipart/form-data">
+    <form class="form" id="form_featured" action="traitement.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Featured Universities :</h4>
 
       <div class="form-file">
@@ -37,25 +37,10 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(isset($_FILES['imageF'])){
-
-      $image = $_FILES['imageF']['name'];
-      $target ='images/'.$image;
-      move_uploaded_file($_FILES['imageF']['tmp_name'],$target);
-      $query = "INSERT INTO `featured`(`image`) VALUES (:image)";
-      $arrayValue = [
-        ':image' =>$image
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 
 <!-- PARTIE SERVICES -->
-    <form class="form" id="form_services" action="backoffice.php" method="post" enctype="multipart/form-data">
+    <form class="form" id="form_services" action="traitement.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Our Services :</h4>
 
       <div class="form-file">
@@ -75,29 +60,10 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['icon'])){
-
-      $title = $_POST['title'];
-      $content = $_POST['content'];
-      $icon = $_FILES['icon']['name'];
-      $target ='images/'.$icon;
-      move_uploaded_file($_FILES['icon']['tmp_name'],$target);
-      $query = "INSERT INTO `services`(`icone`,`titre`, `contenu`) VALUES (:icon,:title, :contenu )";
-      $arrayValue = [
-        ':icon' =>$icon,
-        ':title' =>$title,
-        ':contenu' =>$content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 
 <!-- PARTIE NEWS -->
-    <form class="form" id="form_news" action="backoffice.php" method="post" enctype="multipart/form-data">
+    <form class="form" id="form_news" action="traitement.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">News :</h4>
 
       <div class="form-file">
@@ -117,28 +83,10 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_FILES['imageN'])){
 
-      $date = $_POST['date'];
-      $title = $_POST['title'];
-      $image = $_FILES['imageN']['name'];
-      $target ='images/'.$image;
-      move_uploaded_file($_FILES['imageN']['tmp_name'],$target);
-      $query = "INSERT INTO `news`(`image`,`date`, `titre`) VALUES (:image,:date, :title )";
-      $arrayValue = [
-        ':image' =>$image,
-        ':date' =>$date,
-        ':title' =>$title
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 <!-- PARTIE EVENTS -->
-    <form class="form" id="form_events" action="backoffice.php" method="post">
+    <form class="form" id="form_events" action="traitement.php" method="post">
       <h4 class="mb-5 text-uppercase">Upcoming University Events :</h4>
 
       <label for="date" class="form-label">Date :</label>
@@ -156,29 +104,10 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(!empty($_POST['date']) && !empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['hours'])){
-
-      $date = $_POST['date'];
-      $title = $_POST['title'];
-      $content = $_POST['content'];
-      $hours = $_POST['hours'];
-      $query = "INSERT INTO `events`(`date`, `titre`, `contenu`, `horaires`) VALUES (:date,:title,:contenu,:hours)";
-      $arrayValue = [
-        ':date' =>$date,
-        ':title' =>$title,
-        ':contenu' =>$content,
-        ':hours' =>$hours
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 
 <!-- PARTIE COUNTRIES -->
-    <form class="form" id="form_countries" action="backoffice.php" method="post" enctype="multipart/form-data">
+    <form class="form" id="form_countries" action="traitement.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Countries We Covered :</h4>
 
       <div class="form-file">
@@ -198,28 +127,9 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(!empty($_POST['title']) && !empty($_POST['content']) && !empty($_FILES['imageC'])){
-
-      $title = $_POST['title'];
-      $content = $_POST['content'];
-      $image = $_FILES['imageC']['name'];
-      $target ='images/'.$image;
-      move_uploaded_file($_FILES['imageC']['tmp_name'],$target);
-      $query = "INSERT INTO `countries`(`image`,`titre`, `contenu`) VALUES (:image,:title,:content)";
-      $arrayValue = [
-        ':image' =>$image,
-        ':title' =>$title,
-        ':content' =>$content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 <!-- PARTIE TESTIMONIAL -->
-    <form class="form" id="form_testimonial" action="backoffice.php" method="post" enctype="multipart/form-data">
+    <form class="form" id="form_testimonial" action="traitement.php" method="post" enctype="multipart/form-data">
       <h4 class="mb-5 text-uppercase">Testimonial :</h4>
 
       <div class="form-file">
@@ -245,29 +155,7 @@ require ('model.php');?>
       <button type="submit" name="submit" class="btn btn-primary">Add the project</button>
     </form>
 
-    <?php
-    if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['job']) && !empty($_POST['content']) && !empty($_FILES['image'])){
 
-      $firstname = $_POST['firstname'];
-      $lastname = $_POST['lastname'];
-      $job = $_POST['job'];
-      $content = $_POST['content'];
-      $image = $_FILES['image']['name'];
-      $target ='images/'.$image;
-      move_uploaded_file($_FILES['image']['tmp_name'],$target);
-      $query = "INSERT INTO `testimonial`(`image`,`prenom`, `nom`, `metier`, `contenu`) VALUES (:image,:firstname,:lastname,:job,:content)";
-      $arrayValue = [
-        ':image' =>$image,
-        ':firstname' =>$firstname,
-        ':lastname' =>$lastname,
-        ':job' =>$job,
-        ':content' =>$content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    ?>
 
 <!-- PARTIE SEE ALL -->
     <div id="form_all" class="all">
@@ -277,7 +165,7 @@ require ('model.php');?>
       <h4 class="mb-5">Countries :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $countries = $dB->query("SELECT `id_countries`,`image`, `titre`, `contenu` FROM `countries`");
@@ -301,7 +189,7 @@ require ('model.php');?>
       <h4 class="mb-5 mt-5">Featured :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $featured = $dB->query("SELECT * FROM `featured`");
@@ -321,7 +209,7 @@ require ('model.php');?>
       <h4 class="mb-5 mt-5">Events :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $events = $dB->query("SELECT * FROM `events`");
@@ -353,7 +241,7 @@ require ('model.php');?>
       <h4 class="mb-5 mt-5">News :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $news = $dB->query("SELECT * FROM `news`");
@@ -377,7 +265,7 @@ require ('model.php');?>
       <h4 class="mb-5 mt-5">Services :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $services = $dB->query("SELECT * FROM `services`");
@@ -401,7 +289,7 @@ require ('model.php');?>
       <h4 class="mb-5 mt-5">Testimonial :</h4>
 
       <div class="row row-cols-12">
-        <form class="items_form" action="backoffice.php" method="post">
+        <form class="items_form" action="traitement.php" method="post">
       <?php
       // AFFICHAGE
         $testimonial = $dB->query("SELECT * FROM `testimonial`");
@@ -429,73 +317,6 @@ require ('model.php');?>
 
 
     <?php
-    // DELETE countries
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `countries` WHERE `id_countries`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    // DELETE featured
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `featured` WHERE `id_featured`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    // DELETE events
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `events` WHERE `id_events`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    // DELETE news
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `news` WHERE `id_news`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    // DELETE services
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `services` WHERE `id_services`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-    // DELETE testimonial
-    if(isset($_POST['delete'])){
-      $id = $_POST['delete'];
-      $query = "DELETE FROM `testimonial` WHERE `id_testimonial`=:id";
-      $request = $dB->prepare($query);
-      $arrayValue = [
-        ':id' =>$id
-      ];
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
-
 
 
     // UPDATE countries
