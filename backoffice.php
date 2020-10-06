@@ -178,7 +178,7 @@ require ('model.php');?>
                <p class="card-text"><?php echo $donnees['contenu'];?></p>
              </div>
              <button type="submit" class="btn btn-primary" name="editC" value="<?= $donnees['id_countries'] ?>">Edit</button>
-             <button type="submit" class="btn btn-danger" name="delete" value="<?= $donnees['id_countries'] ?>">Delete</button>
+             <button type="submit" class="btn btn-danger" name="deleteC" value="<?= $donnees['id_countries'] ?>">Delete</button>
            </div>
 
         <?php } $countries->closeCursor(); ?>
@@ -198,7 +198,7 @@ require ('model.php');?>
           <div class="card countriescards bg-light" style="width: 18rem;">
              <img src="images/<?php echo $f['image'];?>" class="card-img-top" alt="<?php echo $f['image'];?>">
              <button type="submit" class="btn btn-primary" name="editF" value="<?= $f['id_featured'] ?>">Edit</button>
-             <button type="submit" class="btn btn-danger" name="delete" value="<?= $f['id_featured'] ?>">Delete</button>
+             <button type="submit" class="btn btn-danger" name="deleteF" value="<?= $f['id_featured'] ?>">Delete</button>
           </div>
 
         <?php } $featured->closeCursor(); ?>
@@ -230,7 +230,7 @@ require ('model.php');?>
           <p class="card-text"><i class="far fa-clock pr-2"></i><?php echo $e['horaires'];?></p>
         </div>
         <button type="submit" class="btn btn-primary" name="editE" value="<?= $e['id_events'] ?>">Edit</button>
-        <button type="submit" class="btn btn-danger" name="delete" value="<?= $e['id_events'] ?>">Delete</button>
+        <button type="submit" class="btn btn-danger" name="deleteE" value="<?= $e['id_events'] ?>">Delete</button>
       </div>
 
     <?php } $events->closeCursor(); ?>
@@ -255,7 +255,7 @@ require ('model.php');?>
         <a href="#" class="card-link">Learn more → </a>
         </div>
         <button type="submit" class="btn btn-primary" name="editN" value="<?= $n['id_news'] ?>">Edit</button>
-        <button type="submit" class="btn btn-danger" name="delete" value="<?= $n['id_news'] ?>">Delete</button>
+        <button type="submit" class="btn btn-danger" name="deleteN" value="<?= $n['id_news'] ?>">Delete</button>
       </div>
     <?php } $news->closeCursor(); ?>
         </form>
@@ -279,7 +279,7 @@ require ('model.php');?>
           <a href="#" class="card-link ">Learn more → </a>
         </div>
         <button type="submit" class="btn btn-primary" name="editS" value="<?= $s['id_services'] ?>">Edit</button>
-        <button type="submit" class="btn btn-danger" name="delete" value="<?= $s['id_services'] ?>">Delete</button>
+        <button type="submit" class="btn btn-danger" name="deleteS" value="<?= $s['id_services'] ?>">Delete</button>
       </div>
     <?php } $services->closeCursor(); ?>
         </form>
@@ -305,7 +305,7 @@ require ('model.php');?>
         </div>
         <p class="card-text"><?php echo $t['contenu'];?></p>
         <button type="submit" class="btn btn-primary" name="editT" value="<?= $t['id_testimonial'] ?>">Edit</button>
-        <button type="submit" class="btn btn-danger" name="delete" value="<?= $t['id_testimonial'] ?>">Delete</button>
+        <button type="submit" class="btn btn-danger" name="deleteT" value="<?= $t['id_testimonial'] ?>">Delete</button>
       </div>
     <?php } $testimonial->closeCursor(); ?>
         </form>
@@ -320,16 +320,11 @@ require ('model.php');?>
 
 
     // UPDATE countries
-    if(isset($_POST['editC'])){
-      $id = $_POST['editC'];
-      $_SESSION['id_editC']= $id;
-      $query = "SELECT * from `countries` WHERE `id_countries` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateCountries = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['countriesEd'])){
+      $updateCountries = $_SESSION['countriesEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" id="form_countries" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <form class="form" id="form_countries" action="traitement.php" method="post" enctype="multipart/form-data">
 
         <div class="form-file">
           <input type="file" class="form-file-input" name="new_imageC" id="customfile" value="' .$updateCountries['image']. '">
@@ -346,41 +341,18 @@ require ('model.php');?>
         <label for="content" class="form-label">Content :</label>
         <textarea class="form-control w-50" rows="5" type="text" name="new_content" id="content">'.$updateCountries['contenu'].'</textarea><br>
 
-        <button type="submit" name="updateC" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateC" class="btn btn-primary" value='.$_SESSION['id_editC'].'>Edit</button>
       </form>';
+      $_SESSION['countriesEd']= null;
     }
-    if(isset($_POST['updateC'])){
-      $id = $_SESSION['id_editC'];
-      $_SESSION['id_editC'] = null; //vider la session après
-      $new_title = $_POST['new_title'];
-      $new_content = $_POST['new_content'];
-      $new_image = $_FILES['new_imageC']['name'];
-      $target ='images/'.$new_image;
-      move_uploaded_file($_FILES['new_imageC']['tmp_name'],$target);
 
-      $query = "UPDATE `countries` SET `image`= :image,`titre`= :title ,`contenu`= :content WHERE `id_countries`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':image' =>$new_image,
-        ':title' =>$new_title,
-        ':content' =>$new_content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
 
     // UPDATE featured
-    if(isset($_POST['editF'])){
-      $id = $_POST['editF'];
-      $_SESSION['id_editF']= $id;
-      $query = "SELECT * from `featured` WHERE `id_featured` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateFeatured = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['featuredEd'])){
+      $updateFeatured = $_SESSION['featuredEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <form class="form" action="traitement.php" method="post" enctype="multipart/form-data">
 
         <div class="form-file">
           <input type="file" class="form-file-input" name="new_imageF" id="customFile1" value="' .$updateFeatured['image']. '">
@@ -391,38 +363,20 @@ require ('model.php');?>
           <img src="images/' .$updateFeatured['image']. '" class="w-50">
         </div><br>
 
-        <button type="submit" name="updateF" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateF" class="btn btn-primary" value='.$_SESSION['id_editF'].'>Edit</button>
       </form>';
+      $_SESSION['featuredEd']= null;
     }
-    if(isset($_POST['updateF'])){
-      $id = $_SESSION['id_editF'];
-      $_SESSION['id_editF'] = null; //vider la session après
-      $new_image = $_FILES['new_imageF']['name'];
-      $target ='images/'.$new_image;
-      move_uploaded_file($_FILES['new_imageF']['tmp_name'],$target);
 
-      $query = "UPDATE `featured` SET `image`= :image WHERE `id_featured`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':image' =>$new_image
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
+
 
 
     // UPDATE events
-    if(isset($_POST['editE'])){
-      $id = $_POST['editE'];
-      $_SESSION['id_editE']= $id;
-      $query = "SELECT * from `events` WHERE `id_events` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateEvents = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['eventsEd'])){
+      $updateEvents = $_SESSION['eventsEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" action="backoffice.php" method="post">
+      <form class="form" action="traitement.php" method="post">
 
         <label for="date" class="form-label">Date :</label>
         <input class="form-control w-50" type="date" name="new_date" id="date" value="'.$updateEvents['date'].'"></input><br>
@@ -436,41 +390,19 @@ require ('model.php');?>
         <label for="hours" class="form-label">Hours :</label>
         <input class="form-control w-50" type="time" name="new_hours" id="hours" value="'.$updateEvents['horaires'].'"><br>
 
-        <button type="submit" name="updateE" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateE" class="btn btn-primary" value='.$_SESSION['id_editE'].'>Edit</button>
       </form>';
+      $_SESSION['eventsEd'] = null;
     }
-    if(isset($_POST['updateE'])){
-      $id = $_SESSION['id_editE'];
-      $_SESSION['id_editE'] = null; //vider la session après
-      $new_date = $_POST['new_date'];
-      $new_title = $_POST['new_title'];
-      $new_content = $_POST['new_content'];
-      $new_hours = $_POST['new_hours'];
 
-      $query = "UPDATE `events` SET `date`= :date,`titre`= :title ,`contenu`= :content, `horaires`= :hours WHERE `id_events`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':date' =>$new_date,
-        ':title' =>$new_title,
-        ':content' =>$new_content,
-        ':hours' =>$new_hours
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
+
 
     // UPDATE news
-    if(isset($_POST['editN'])){
-      $id = $_POST['editN'];
-      $_SESSION['id_editN']= $id;
-      $query = "SELECT * from `news` WHERE `id_news` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateNews = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['newsEd'])){
+      $updateNews = $_SESSION['newsEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <form class="form" action="traitement.php" method="post" enctype="multipart/form-data">
 
         <div class="form-file">
           <input type="file" class="form-file-input" name="new_imageN" id="customFil" value="' .$updateNews['image']. '">
@@ -487,41 +419,18 @@ require ('model.php');?>
         <label for="title" class="form-label">Title :</label>
         <input class="form-control w-50" type="text" name="new_title" id="title" value="' .$updateNews['titre']. '"><br>
 
-        <button type="submit" name="updateN" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateN" class="btn btn-primary" value='.$_SESSION['id_editN'].'>Edit</button>
       </form>';
+      $_SESSION['newsEd'] = null;
     }
-    if(isset($_POST['updateN'])){
-      $id = $_SESSION['id_editN'];
-      $_SESSION['id_editN'] = null; //vider la session après
-      $new_date = $_POST['new_date'];
-      $new_title = $_POST['new_title'];
-      $new_image = $_FILES['new_imageN']['name'];
-      $target ='images/'.$new_image;
-      move_uploaded_file($_FILES['new_imageN']['tmp_name'],$target);
 
-      $query = "UPDATE `news` SET `image`= :image,`titre`= :title ,`date`= :date WHERE `id_news`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':image' =>$new_image,
-        ':title' =>$new_title,
-        ':date' =>$new_date
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
 
     // UPDATE services
-    if(isset($_POST['editS'])){
-      $id = $_POST['editS'];
-      $_SESSION['id_editS']= $id;
-      $query = "SELECT * from `services` WHERE `id_services` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateServices = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['servicesEd'])){
+      $updateServices = $_SESSION['servicesEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <form class="form" action="traitement.php" method="post" enctype="multipart/form-data">
 
         <div class="form-file">
           <input type="file" class="form-file-input" name="new_icon" id="custoFile" value="' .$updateServices['icone']. '">
@@ -538,41 +447,18 @@ require ('model.php');?>
         <label for="content" class="form-label">Content :</label>
         <textarea class="form-control w-50" rows="5" type="text" name="new_content" id="content">' .$updateServices['contenu']. '</textarea><br>
 
-        <button type="submit" name="updateS" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateS" class="btn btn-primary" value='.$_SESSION['id_editS'].'>Edit</button>
       </form>';
+      $_SESSION['servicesEd'] = null;
     }
-    if(isset($_POST['updateS'])){
-      $id = $_SESSION['id_editS'];
-      $_SESSION['id_editS'] = null; //vider la session après
-      $new_content = $_POST['new_content'];
-      $new_title = $_POST['new_title'];
-      $new_icone = $_FILES['new_icon']['name'];
-      $target ='images/'.$new_icone;
-      move_uploaded_file($_FILES['new_icon']['tmp_name'],$target);
 
-      $query = "UPDATE `services` SET `icone`= :icon,`titre`= :title ,`contenu`= :content WHERE `id_services`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':icon' =>$new_icone,
-        ':title' =>$new_title,
-        ':content' =>$new_content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
-    }
 
     // UPDATE testimonial
-    if(isset($_POST['editT'])){
-      $id = $_POST['editT'];
-      $_SESSION['id_editT']= $id;
-      $query = "SELECT * from `testimonial` WHERE `id_testimonial` = $id";
-      $request = $dB->prepare($query);
-      $request->execute();
-      $updateTestimonial = $request->fetch();
-      $request->closeCursor();
+    if(isset($_SESSION['testimonialEd'])){
+      $updateTestimonial = $_SESSION['testimonialEd'];
+
       echo '<h3>Edit :</h3>
-      <form class="form" action="backoffice.php" method="post" enctype="multipart/form-data">
+      <form class="form" action="traitement.php" method="post" enctype="multipart/form-data">
 
         <div class="form-file">
           <input type="file" class="form-file-input" name="new_imageT" id="customFile2" value="' .$updateTestimonial['image']. '">
@@ -595,32 +481,9 @@ require ('model.php');?>
         <label for="content" class="form-label">Content :</label>
         <textarea class="form-control w-50" rows="5" type="time" name="new_content" id="content">' .$updateTestimonial['contenu']. '</textarea><br>
 
-        <button type="submit" name="updateT" class="btn btn-primary" value='.$id.'>Edit</button>
+        <button type="submit" name="updateT" class="btn btn-primary" value='.$_SESSION['id_editT'].'>Edit</button>
       </form>';
-    }
-    if(isset($_POST['updateT'])){
-      $id = $_SESSION['id_editT'];
-      $_SESSION['id_editT'] = null; //vider la session après
-      $new_firstname = $_POST['new_firstname'];
-      $new_lastname = $_POST['new_lastname'];
-      $new_job = $_POST['new_job'];
-      $new_content = $_POST['new_content'];
-      $new_image = $_FILES['new_imageT']['name'];
-      $target ='images/'.$new_image;
-      move_uploaded_file($_FILES['new_imageT']['tmp_name'],$target);
-
-      $query = "UPDATE `testimonial` SET `image`= :image,`prenom`= :firstname,`nom`= :lastname, `metier`= :job, `contenu`= :content WHERE `id_testimonial`=:id";
-      $arrayValue = [
-        ':id' =>$id,
-        ':image' =>$new_image,
-        ':firstname' =>$new_firstname,
-        ':lastname' =>$new_lastname,
-        ':job' =>$new_job,
-        ':content' =>$new_content
-      ];
-      $request = $dB->prepare($query);
-      $request->execute($arrayValue);
-      $request->closeCursor();
+      $_SESSION['testimonialEd'] = null;
     }
 
 

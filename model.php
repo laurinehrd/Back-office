@@ -497,5 +497,258 @@ function testimonialDelete($id){
   $request->closeCursor();
 }
 
+// EDIT TO UPDATE
+function countriesEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `countries` WHERE `id_countries` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateCountries = $request->fetch();
+  $request->closeCursor();
+  return $updateCountries;
+}
 
+function featuredEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `featured` WHERE `id_featured` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateFeatured = $request->fetch();
+  $request->closeCursor();
+  return $updateFeatured;
+}
+
+function eventsEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `events` WHERE `id_events` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateEvents = $request->fetch();
+  $request->closeCursor();
+  return $updateEvents;
+}
+
+function newsEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `news` WHERE `id_news` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateNews = $request->fetch();
+  $request->closeCursor();
+  return $updateNews;
+}
+
+function servicesEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `services` WHERE `id_services` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateServices = $request->fetch();
+  $request->closeCursor();
+  return $updateServices;
+}
+
+function testimonialEdit($id){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "SELECT * from `testimonial` WHERE `id_testimonial` = $id";
+  $request = $dB->prepare($query);
+  $request->execute();
+  $updateTestimonial = $request->fetch();
+  $request->closeCursor();
+  return $updateTestimonial;
+}
+
+// UPDATE IN DATABASE
+function countriesUpdate($id,$new_title,$new_content,$new_image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `countries` SET `image`= :image,`titre`= :title ,`contenu`= :content WHERE `id_countries`=:id";
+  $request = $dB->prepare($query);
+  $arrayValue = [
+    ':id' =>$id,
+    ':image' =>$new_image,
+    ':title' =>$new_title,
+    ':content' =>$new_content
+  ];
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function featuredUpdate($id,$new_image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `featured` SET `image`= :image WHERE `id_featured`=:id";
+  $arrayValue = [
+    ':id' =>$id,
+    ':image' =>$new_image
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function eventsUpdate($id,$new_date,$new_title,$new_content,$new_hours){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `events` SET `date`= :date,`titre`= :title ,`contenu`= :content, `horaires`= :hours WHERE `id_events`=:id";
+  $arrayValue = [
+    ':id' =>$id,
+    ':date' =>$new_date,
+    ':title' =>$new_title,
+    ':content' =>$new_content,
+    ':hours' =>$new_hours
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function newsUpdate($id,$new_date,$new_title,$new_image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `news` SET `image`= :image,`titre`= :title ,`date`= :date WHERE `id_news`=:id";
+  $arrayValue = [
+    ':id' =>$id,
+    ':image' =>$new_image,
+    ':title' =>$new_title,
+    ':date' =>$new_date
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function servicesUpdate($id,$new_content,$new_title,$new_icone){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `services` SET `icone`= :icon,`titre`= :title ,`contenu`= :content WHERE `id_services`=:id";
+  $arrayValue = [
+    ':id' =>$id,
+    ':icon' =>$new_icone,
+    ':title' =>$new_title,
+    ':content' =>$new_content
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
+
+function testimonialUpdate($id,$new_firstname,$new_lastname,$new_job,$new_content,$new_image){
+  $servername = "localhost";
+  $username = "root";
+  $password = "";
+  $dbname = "test";
+  try{
+    $dB = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $dB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  }catch(Exception $e){
+    die('erreur:' . $e->getMessage());
+  }
+  $query = "UPDATE `testimonial` SET `image`= :image,`prenom`= :firstname,`nom`= :lastname, `metier`= :job, `contenu`= :content WHERE `id_testimonial`=:id";
+  $arrayValue = [
+    ':id' =>$id,
+    ':image' =>$new_image,
+    ':firstname' =>$new_firstname,
+    ':lastname' =>$new_lastname,
+    ':job' =>$new_job,
+    ':content' =>$new_content
+  ];
+  $request = $dB->prepare($query);
+  $request->execute($arrayValue);
+  $request->closeCursor();
+}
  ?>

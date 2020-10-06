@@ -146,44 +146,171 @@ if(!empty($_POST['firstname']) && !empty($_POST['lastname']) && !empty($_POST['j
 // DELETE IN DATABASE
 
 // delete countries
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteC'])){
+  $id = $_POST['deleteC'];
   countriesDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete featured
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteF'])){
+  $id = $_POST['deleteF'];
   featuredDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete events
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteE'])){
+  $id = $_POST['deleteE'];
   eventsDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete news
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteN'])){
+  $id = $_POST['deleteN'];
   newsDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete services
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteS'])){
+  $id = $_POST['deleteS'];
   servicesDelete($id);
   header('Location:backoffice.php');
 }
 
 // delete testimonial
-if(isset($_POST['delete'])){
-  $id = $_POST['delete'];
+if(isset($_POST['deleteT'])){
+  $id = $_POST['deleteT'];
   testimonialDelete($id);
+  header('Location:backoffice.php');
+}
+
+
+
+// EDIT TO UPDATE
+
+// edit countries
+if(isset($_POST['editC'])){
+  $id = $_POST['editC'];
+  $_SESSION['id_editC']= $id;
+  $edCountries = countriesEdit($id);
+  $_SESSION['countriesEd'] = $edCountries;
+  header('Location:backoffice.php');
+}
+// edit featured
+if(isset($_POST['editF'])){
+  $id = $_POST['editF'];
+  $_SESSION['id_editF']= $id;
+  $edFeatured = featuredEdit($id);
+  $_SESSION['featuredEd'] = $edFeatured;
+  header('Location:backoffice.php');
+}
+// edit events
+if(isset($_POST['editE'])){
+  $id = $_POST['editE'];
+  $_SESSION['id_editE']= $id;
+  $edEvents = eventsEdit($id);
+  $_SESSION['eventsEd'] = $edEvents;
+  header('Location:backoffice.php');
+}
+// edit news
+if(isset($_POST['editN'])){
+  $id = $_POST['editN'];
+  $_SESSION['id_editN']= $id;
+  $edNews = newsEdit($id);
+  $_SESSION['newsEd'] = $edNews;
+  header('Location:backoffice.php');
+}
+// edit services
+if(isset($_POST['editS'])){
+  $id = $_POST['editS'];
+  $_SESSION['id_editS']= $id;
+  $edServices = servicesEdit($id);
+  $_SESSION['servicesEd'] = $edServices;
+  header('Location:backoffice.php');
+}
+// edit testimonial
+if(isset($_POST['editT'])){
+  $id = $_POST['editT'];
+  $_SESSION['id_editT']= $id;
+  $edTestimonial = testimonialEdit($id);
+  $_SESSION['testimonialEd'] = $edTestimonial;
+  header('Location:backoffice.php');
+}
+
+// UPDATE IN DATABASE
+
+// update countries
+if(isset($_POST['updateC'])){
+  $id = $_SESSION['id_editC'];
+  $new_title = $_POST['new_title'];
+  $new_content = $_POST['new_content'];
+  $new_image = $_FILES['new_imageC']['name'];
+  $target ='images/'.$new_image;
+  move_uploaded_file($_FILES['new_imageC']['tmp_name'],$target);
+  countriesUpdate($id,$new_title,$new_content,$new_image);
+  $_SESSION['id_editC']= null;
+  header('Location:backoffice.php');
+}
+// update featured
+if(isset($_POST['updateF'])){
+  $id = $_SESSION['id_editF'];
+  $new_image = $_FILES['new_imageF']['name'];
+  $target ='images/'.$new_image;
+  move_uploaded_file($_FILES['new_imageF']['tmp_name'],$target);
+  featuredUpdate($id,$new_image);
+  $_SESSION['id_editF'] = null;
+  header('Location:backoffice.php');
+}
+// update events
+if(isset($_POST['updateE'])){
+  $id = $_SESSION['id_editE'];
+  $new_date = $_POST['new_date'];
+  $new_title = $_POST['new_title'];
+  $new_content = $_POST['new_content'];
+  $new_hours = $_POST['new_hours'];
+  eventsUpdate($id,$new_date,$new_title,$new_content,$new_hours);
+  $_SESSION['id_editE'] = null;
+  header('Location:backoffice.php');
+}
+// update news
+if(isset($_POST['updateN'])){
+  $id = $_SESSION['id_editN'];
+  $new_date = $_POST['new_date'];
+  $new_title = $_POST['new_title'];
+  $new_image = $_FILES['new_imageN']['name'];
+  $target ='images/'.$new_image;
+  move_uploaded_file($_FILES['new_imageN']['tmp_name'],$target);
+  newsUpdate($id,$new_date,$new_title,$new_image);
+  $_SESSION['id_editN'] = null;
+  header('Location:backoffice.php');
+}
+// update services
+if(isset($_POST['updateS'])){
+  $id = $_SESSION['id_editS'];
+  $new_content = $_POST['new_content'];
+  $new_title = $_POST['new_title'];
+  $new_icone = $_FILES['new_icon']['name'];
+  $target ='images/'.$new_icone;
+  move_uploaded_file($_FILES['new_icon']['tmp_name'],$target);
+  servicesUpdate($id,$new_content,$new_title,$new_icone);
+  $_SESSION['id_editS'] = null;
+  header('Location:backoffice.php');
+}
+// update testimonial
+if(isset($_POST['updateT'])){
+  $id = $_SESSION['id_editT'];
+  $new_firstname = $_POST['new_firstname'];
+  $new_lastname = $_POST['new_lastname'];
+  $new_job = $_POST['new_job'];
+  $new_content = $_POST['new_content'];
+  $new_image = $_FILES['new_imageT']['name'];
+  $target ='images/'.$new_image;
+  move_uploaded_file($_FILES['new_imageT']['tmp_name'],$target);
+  testimonialUpdate($id,$new_firstname,$new_lastname,$new_job,$new_content,$new_image);
+  $_SESSION['id_editT'] = null;
   header('Location:backoffice.php');
 }
 
